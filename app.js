@@ -94,7 +94,8 @@ app.post('/login', function(req, res) {
 						res.cookie('name', params.name);
 						res.render('room.ejs', {
 							layout: false,
-							name: params.name
+							name: params.name,
+							hostname: req.headers.host
 						});
 					}
 				}
