@@ -19,7 +19,7 @@ var store = new (connect.session.MemoryStore)();
 app.use(express.session({
 	store: store,
 	secret: '******',
-	cookie: { httpOnly: false}
+	cookie: { httpOnly: false, "originalMaxAge": 60000 }
 }));
 app.get('/', function(req, res) {
 	var name = req.cookies.name;
@@ -195,9 +195,9 @@ io.sockets.on('connection', function(socket) {
 		io.sockets.in(roomname).send(shared_message);
 		redis_client.sismember(dst + '_room', roomname, function(error, result) {
 			if(error) console.log('Redis Error(on send message at sismember): ' + error);
-			else if(!result) {
-				clients[dst].send(shared_message);
-			}
+			//else if(!result) {
+			//	clients[dst].send(shared_message);
+			//}
 		});
 		/* save message */
 		redis_client.rpush('room_' + getRoomName(name, dst), shared_message, function(err, result) {
