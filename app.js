@@ -28,7 +28,8 @@ app.get('/', function(req, res) {
 		else if(result) {
 			res.render('room.ejs', {
 				layout: false,
-				name: name
+				name: name,
+				hostname: req.headers.host
 			});
 		}
 		else {
@@ -111,7 +112,8 @@ app.get('/chat', function(req, res) {
 	res.render('chat.ejs', {
 		layout: false,
 		name: req.cookies['name'],
-		dst: req.query.dst
+		dst: req.query.dst,
+		hostname: req.headers.host
 	});
 });
 
